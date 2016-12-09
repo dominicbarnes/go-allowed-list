@@ -6,25 +6,20 @@ type setlist struct {
 	list mapset.Set
 }
 
-// Add includes the given item in the list. Empty strings are ignored and a bool
-// is returned indicating whether or not the item was added.
-func (set *setlist) Add(item string) bool {
-	if item == "" {
-		return false
+// Add includes the given item in the list. Empty strings are ignored.
+func (set *setlist) Add(items ...string) {
+	for _, item := range items {
+		if item != "" {
+			set.list.Add(item)
+		}
 	}
-
-	return set.list.Add(item)
 }
 
-// Remove removes the given item from the list if it is present. Returns a bool
-// indicating whether or not it removed the item.
-func (set *setlist) Remove(item string) bool {
-	if !set.Has(item) {
-		return false
+// Remove removes the given item from the list if it is present.
+func (set *setlist) Remove(items ...string) {
+	for _, item := range items {
+		set.list.Remove(item)
 	}
-
-	set.list.Remove(item)
-	return true
 }
 
 // Has tells us whether the given item is included in the list.

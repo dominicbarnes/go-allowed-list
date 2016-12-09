@@ -25,17 +25,12 @@ func TestBlacklistAddSimple(t *testing.T) {
 	assert.True(t, b.Has("a"))
 }
 
-// assert that removing a non-existant item returns false.
-func TestBlacklistRemoveFalse(t *testing.T) {
-	b := NewBlacklist()
-	assert.False(t, b.Remove("a"))
-}
-
-// assert that removing an item returns true.
-func TestBlacklistRemoveTrue(t *testing.T) {
+// assert that items can be removed.
+func TestBlacklistRemove(t *testing.T) {
 	b := NewBlacklist()
 	b.Add("a")
-	assert.True(t, b.Remove("a"))
+	b.Remove("a")
+	assert.False(t, b.Has("a"))
 }
 
 // assert that items not added to the list are correctly identified.
