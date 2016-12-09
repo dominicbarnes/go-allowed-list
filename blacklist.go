@@ -8,8 +8,10 @@ type Blacklist struct {
 }
 
 // NewBlacklist creates a new instance.
-func NewBlacklist() *Blacklist {
-	return &Blacklist{setlist{mapset.NewSet()}}
+func NewBlacklist(items ...string) *Blacklist {
+	b := Blacklist{setlist{mapset.NewSet()}}
+	b.Add(items...)
+	return &b
 }
 
 // Allowed tells us whether the input item should be allowed under this strategy.

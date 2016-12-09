@@ -8,8 +8,10 @@ type Whitelist struct {
 }
 
 // NewWhitelist creates a new instance.
-func NewWhitelist() *Whitelist {
-	return &Whitelist{setlist{mapset.NewSet()}}
+func NewWhitelist(items ...string) *Whitelist {
+	w := Whitelist{setlist{mapset.NewSet()}}
+	w.Add(items...)
+	return &w
 }
 
 // Allowed tells us whether the input item should be allowed under this strategy.

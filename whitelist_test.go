@@ -11,6 +11,14 @@ func TestWhitelistImplements(t *testing.T) {
 	assert.Implements(t, (*AllowedList)(nil), new(Whitelist))
 }
 
+// assert that the items can be added on init.
+func TestNewWhitelistItems(t *testing.T) {
+	b := NewWhitelist("a", "b")
+	assert.True(t, b.Has("a"))
+	assert.True(t, b.Has("b"))
+	assert.False(t, b.Has("c"))
+}
+
 // assert that empty strings are not added to the list.
 func TestWhitelistAddEmptyString(t *testing.T) {
 	w := NewWhitelist()

@@ -11,6 +11,14 @@ func TestBlacklistImplements(t *testing.T) {
 	assert.Implements(t, (*AllowedList)(nil), new(Blacklist))
 }
 
+// assert that the items can be added on init.
+func TestNewBlacklistItems(t *testing.T) {
+	b := NewBlacklist("a", "b")
+	assert.True(t, b.Has("a"))
+	assert.True(t, b.Has("b"))
+	assert.False(t, b.Has("c"))
+}
+
 // assert that empty strings are not added to the list.
 func TestBlacklistAddEmptyString(t *testing.T) {
 	b := NewBlacklist()
