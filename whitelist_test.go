@@ -64,3 +64,11 @@ func TestWhitelistAllowed(t *testing.T) {
 	assert.True(t, b.Allowed("a"))
 	assert.False(t, b.Allowed("b"))
 }
+
+// assert that the size is accurately reported.
+func TestWhitelistSize(t *testing.T) {
+	b := NewWhitelist()
+	assert.Zero(t, b.Size())
+	b.Add("a")
+	assert.Equal(t, 1, b.Size())
+}

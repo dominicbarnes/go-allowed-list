@@ -2,39 +2,21 @@ package allowedList
 
 import "github.com/deckarep/golang-set"
 
+// Blacklist represents a strategy where the listed items should be rejected.
 type Blacklist struct {
-	list mapset.Set
+	setlist
 }
 
+// NewBlacklist creates a new instance.
 func NewBlacklist() *Blacklist {
-	return &Blacklist{mapset.NewSet()}
+	return &Blacklist{setlist{mapset.NewSet()}}
 }
 
-func (b *Blacklist) Add(item string) bool {
-	if item == "" {
-		return false
-	}
-
-	return b.list.Add(item)
-}
-
-func (b *Blacklist) Remove(item string) bool {
-	if !b.Has(item) {
-		return false
-	}
-
-	b.list.Remove(item)
-	return true
-}
-
-func (b *Blacklist) Has(item string) bool {
-	return b.list.Contains(item)
-}
-
-func (b *Blacklist) Allowed(item string) bool {
-	if b.list.Cardinality() == 0 {
+// Allowed tells us whether the input item should be allowed under this strategy.
+func (black *Blacklist) Allowed(item string) bool {
+	if black.Size() == 0 {
 		return true
 	}
 
-	return !b.list.Contains(item)
+	return !black.Has(item)
 }

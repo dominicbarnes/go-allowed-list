@@ -2,39 +2,21 @@ package allowedList
 
 import "github.com/deckarep/golang-set"
 
+// Whitelist represents a strategy where only the listed items should be allowed.
 type Whitelist struct {
-	list mapset.Set
+	setlist
 }
 
+// NewWhitelist creates a new instance.
 func NewWhitelist() *Whitelist {
-	return &Whitelist{mapset.NewSet()}
+	return &Whitelist{setlist{mapset.NewSet()}}
 }
 
-func (b *Whitelist) Add(item string) bool {
-	if item == "" {
-		return false
-	}
-
-	return b.list.Add(item)
-}
-
-func (b *Whitelist) Remove(item string) bool {
-	if !b.Has(item) {
-		return false
-	}
-
-	b.list.Remove(item)
-	return true
-}
-
-func (b *Whitelist) Has(item string) bool {
-	return b.list.Contains(item)
-}
-
-func (b *Whitelist) Allowed(item string) bool {
-	if b.list.Cardinality() == 0 {
+// Allowed tells us whether the input item should be allowed under this strategy.
+func (white *Whitelist) Allowed(item string) bool {
+	if white.Size() == 0 {
 		return true
 	}
 
-	return b.list.Contains(item)
+	return white.Has(item)
 }

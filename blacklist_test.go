@@ -64,3 +64,11 @@ func TestBlacklistAllowed(t *testing.T) {
 	assert.False(t, b.Allowed("a"))
 	assert.True(t, b.Allowed("b"))
 }
+
+// assert that the size is accurately reported.
+func TestBlacklistSizeEmpty(t *testing.T) {
+	b := NewBlacklist()
+	assert.Zero(t, b.Size())
+	b.Add("a")
+	assert.Equal(t, 1, b.Size())
+}
