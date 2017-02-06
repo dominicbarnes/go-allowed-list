@@ -60,6 +60,13 @@ func TestBlacklistAllowedEmpty(t *testing.T) {
 	assert.True(t, b.Allowed("a"))
 }
 
+// assert that a strict blacklist does not treat empty lists loosely.
+func TestBlacklistAllowedStrict(t *testing.T) {
+	b := NewBlacklist()
+	b.Strict()
+	assert.False(t, b.Allowed("a"))
+}
+
 // assert that only items not in the blacklist are allowed.
 func TestBlacklistAllowed(t *testing.T) {
 	b := NewBlacklist()

@@ -60,6 +60,13 @@ func TestWhitelistAllowedEmpty(t *testing.T) {
 	assert.True(t, w.Allowed("a"))
 }
 
+// assert that a strict whitelist does not treat empty lists loosely.
+func TestWhitelistAllowedStrict(t *testing.T) {
+	w := NewWhitelist()
+	w.Strict()
+	assert.False(t, w.Allowed("a"))
+}
+
 // assert that only items in the whitelist are allowed.
 func TestWhitelistAllowed(t *testing.T) {
 	w := NewWhitelist()
