@@ -82,3 +82,9 @@ func TestBlacklistSizeEmpty(t *testing.T) {
 	b.Add("a")
 	assert.Equal(t, 1, b.Size())
 }
+
+// assert that the strict method is chainable.
+func TestBlacklistStrictChainable(t *testing.T) {
+	b := NewBlacklist()
+	assert.Equal(t, b, b.Strict())
+}

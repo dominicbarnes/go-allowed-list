@@ -19,8 +19,9 @@ func NewBlacklist(items ...string) *Blacklist {
 
 // Strict enables "strict mode" for this blacklist. By default, an empty list
 // will allow everything, but strict mode flips this and disallows everything.
-func (black *Blacklist) Strict() {
+func (black *Blacklist) Strict() AllowedList {
 	black.strict = true
+	return black
 }
 
 // Allowed tells us whether the input item should be allowed under this strategy.

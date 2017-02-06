@@ -82,3 +82,9 @@ func TestWhitelistSize(t *testing.T) {
 	w.Add("a")
 	assert.Equal(t, 1, w.Size())
 }
+
+// assert that the strict method is chainable.
+func TestWhitelistStrictChainable(t *testing.T) {
+	w := NewWhitelist()
+	assert.Equal(t, w, w.Strict())
+}

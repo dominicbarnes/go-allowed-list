@@ -19,8 +19,9 @@ func NewWhitelist(items ...string) *Whitelist {
 
 // Strict enables "strict mode" for this whitelist. By default, an empty list
 // will allow everything, but strict mode flips this and disallows everything.
-func (white *Whitelist) Strict() {
+func (white *Whitelist) Strict() AllowedList {
 	white.strict = true
+	return white
 }
 
 // Allowed tells us whether the input item should be allowed under this strategy.
